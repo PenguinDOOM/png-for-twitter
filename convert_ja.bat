@@ -107,23 +107,17 @@ echo 減色設定を選択してください。
 echo 透明なピクセルは保持されます。
 echo.
 echo           1: 8ビットにする
-echo           2: 8ビットにしディザーをかける
-echo           3: 256色に減色する
-echo           4: 256色に減色しディザーをかける
+echo           2: 256色に減色する
+echo           3: 256色に減色しディザーをかける
 echo.
-Choice /c 1234 /N /M Choose:
+Choice /c 123 /N /M Choose:
 
-If ERRORLEVEL 4 goto 256dither
-If ERRORLEVEL 3 goto 256colors
-If ERRORLEVEL 2 goto 8dither
+If ERRORLEVEL 3 goto 256dither
+If ERRORLEVEL 2 goto 256colors
 If ERRORLEVEL 1 goto 8bit
 
 :8bit
 	convert "%~1" -quality %Compression% -depth 8 png8:"..\out\%~n1_converted_8bit%~x1"
-	goto ok
-
-:8dither
-	convert "%~1" -quality %Compression% +dither png8:"..\out\%~n1_converted_8bit_dither%~x1"
 	goto ok
 
 :256colors

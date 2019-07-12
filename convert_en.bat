@@ -104,23 +104,17 @@ echo Please choose a color reduced option.
 echo Note: Transparent pixels are retained.
 echo.
 echo           1: Color reduced to 8 bit
-echo           2: Color reduced to 8 bit + dither
-echo           3: Color reduced to 256 colors
-echo           4: Color reduced to 256 colors + dither
+echo           2: Color reduced to 256 colors
+echo           3: Color reduced to 256 colors + dither
 echo.
-Choice /c 1234 /N /M Choose:
+Choice /c 123 /N /M Choose:
 
-If ERRORLEVEL 4 goto 256dither
-If ERRORLEVEL 3 goto 256colors
-If ERRORLEVEL 2 goto 8dither
+If ERRORLEVEL 3 goto 256dither
+If ERRORLEVEL 2 goto 256colors
 If ERRORLEVEL 1 goto 8bit
 
 :8bit
 	convert "%~1" -quality %Compression% -depth 8 png8:"..\out\%~n1_converted_8bit%~x1"
-	goto ok
-
-:8dither
-	convert "%~1" -quality %Compression% +dither png8:"..\out\%~n1_converted_8bit_dither%~x1"
 	goto ok
 
 :256colors
